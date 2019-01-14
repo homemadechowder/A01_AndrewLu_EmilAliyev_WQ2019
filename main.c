@@ -155,15 +155,16 @@ void LEDBlinkyRoutine()
     {
 
         //If sw3 pressed
-        if (GPIOPinRead(GPIOA1_BASE, 0x20))
+        if (GPIOPinRead(GPIOA1_BASE, 0x20)) //sw3 pin is designated to GPIOA1_BASE, 0x20
         {
         //
         // Alternately toggle hi-low each of the GPIOs
         // to switch the corresponding LED on/off.
         //
 
-            //Pin 18 low
-            GPIOPinWrite (GPIOA3_BASE, 0x10, 0);
+            
+            GPIOPinWrite (GPIOA3_BASE, 0x10, 0); //This sets Pin 18 as low when SW3 is pressed
+            
             GPIO_IF_LedOff(MCU_RED_LED_GPIO); //000
             GPIO_IF_LedOff(MCU_ORANGE_LED_GPIO);
             GPIO_IF_LedOff(MCU_GREEN_LED_GPIO);
@@ -206,12 +207,13 @@ void LEDBlinkyRoutine()
 
         }
 
-        else if (GPIOPinRead(GPIOA2_BASE, 0x40))
+        else if (GPIOPinRead(GPIOA2_BASE, 0x40)) //sw2 pin is designated to GPIOA2_BASE, 0x40
         {
-            //Pin 18 high
-
-            GPIOPinWrite (GPIOA3_BASE, 0x10, 0x10);
-            GPIO_IF_LedOn(MCU_RED_LED_GPIO);
+            
+            GPIOPinWrite (GPIOA3_BASE, 0x10, 0x10); //This sets pin18 as high
+            //The below function lights all 3 LED's up, add a small delay, and turns it off. 
+            //This repeats once.
+            GPIO_IF_LedOn(MCU_RED_LED_GPIO); 
             GPIO_IF_LedOn(MCU_ORANGE_LED_GPIO);
             GPIO_IF_LedOn(MCU_GREEN_LED_GPIO);
             MAP_UtilsDelay(8000000);
